@@ -1,21 +1,53 @@
+import dto.*;
+import lombok.AllArgsConstructor;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+@AllArgsConstructor
 public class Statistics {
 
-    private static ArrayList<String> splitLine(String line) {
-        ArrayList<String> words = new ArrayList<>();
-        words.addAll(Arrays.asList(line.split(" ")));
+    private File file;
+    private String content;
 
-        return words;
+    public FileInfoDto getAllStatistics () {
+        List<LineDto> lines = new ArrayList<LineDto>();
+        List<String> linesContent = new ArrayList<>(splitText(content));
+
+        for(String lineContent : linesContent) {
+            lines.add(LineDto.builder()
+                    .content(lineContent)
+                    .longestWord(getMaxLengthWord(lineContent))
+                    .shortestWord(getMinLengthWord(lineContent))
+                    .avarageWordLength(getAvarageWordLegth(lineContent))
+                    .length(lineContent.length())
+                    .build());
+        }
+
+        return FileInfoDto.builder()
+                .name(file.getName())
+                .location(file.getAbsolutePath())
+                .longestWord(getMaxLengthWord(content))
+                .shortestWord(getMinLengthWord(content))
+                .avarageWordLength(getAvarageWordLegth(content))
+                .length(content.length())
+                .lines(lines)
+                .build();
     }
 
-    public static int getLength(String line) {
-        return line.length();
+    private static List<String> splitLine(String line) {
+
+        return new ArrayList<>((Arrays.asList(line.split(" "))));
     }
 
-    public static String getMinLengthWord(String line) {
-        ArrayList<String> words = splitLine(line);
+    private List<String> splitText (String content) {
+        return new ArrayList<>(Arrays.asList(content.split("\r\n", -1)));
+    }
+
+    private String getMinLengthWord(String line) {
+        List<String> words = splitLine(line);
         String minStr = "";
         int min = Integer.MAX_VALUE;
         for (String word : words) {
@@ -27,8 +59,8 @@ public class Statistics {
         return minStr;
     }
 
-    public static String getMaxLengthWord(String line) {
-        ArrayList<String> words = splitLine(line);
+    private String getMaxLengthWord(String line) {
+        List<String> words = splitLine(line);
         String maxStr = "";
 
         for (String word : words) {
@@ -39,9 +71,9 @@ public class Statistics {
         return maxStr;
     }
 
-    public static float getAvarageWordLegth(String line) {
-        ArrayList<String> words = splitLine(line);
-        float sum = 0, avarage;
+    private int getAvarageWordLegth(String line) {
+        List<String> words = splitLine(line);
+        int sum = 0, avarage;
 
         for (String word : words) {
             sum += word.length();

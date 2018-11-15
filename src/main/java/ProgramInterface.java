@@ -1,7 +1,8 @@
 import lombok.NoArgsConstructor;
 import org.beryx.textio.TextIO;
-import java.util.ArrayList;
 import org.beryx.textio.TextIoFactory;
+
+import java.io.File;
 
 @NoArgsConstructor
 public class ProgramInterface {
@@ -13,14 +14,16 @@ public class ProgramInterface {
                 .withDefaultValue("C://")
                 .read("Path to file");
 
-        FileReader fileReader = new FileReader(path);
-        ArrayList<String> lines = fileReader.ReadByLine();
+        File file = new File(path);
+        FileReader fileReader = new FileReader();
 
-        for (String line : lines) {
-            textIO.getTextTerminal().printf("Line: " + line + "\n Line length: " +
-                    Statistics.getLength(line) + "\n Avarage word length: " + Statistics.getAvarageWordLegth(line) +
-                    "\n MaxLengthWord: " + Statistics.getMaxLengthWord(line) +
-                    "\n MinLengthWord: " + Statistics.getMinLengthWord(line));
-        }
+        Statistics statistics = new Statistics(file, fileReader.ReadAll(file));
+
+        DbManager dbManager = new DbManager();
+        dbManager.AddFile(statistics.getAllStatistics());
+
+
+        textIO.getTextTerminal().printf(statistics.getAllStatistics().toString());
+
     }
 }
