@@ -6,7 +6,7 @@ import java.sql.*;
 public class DbManager {
     static final String DB_URL = "jdbc:postgresql://localhost:5432/statistics_db";
     static final String USER = "postgres";
-    static final String PASS = "Armagedon12";
+    static final String PASS = "postgres";
 
     public void AddFile(FileInfoDto fileInfo) {
         Connection conn = null;
