@@ -11,7 +11,7 @@ public class FileInfoDto {
     private String location;
     private String longestWord;
     private String shortestWord;
-    private int avarageWordLength;
+    private int averageWordLength;
     private int length;
     private List<LineDto> lines;
 }

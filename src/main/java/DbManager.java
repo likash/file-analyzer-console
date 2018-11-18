@@ -14,17 +14,17 @@ public class DbManager {
 
         String sqlFile = String.format("insert into file_info (file_location, " +
                         "file_name, longest_word, shortest_word, length, " +
-                        "avarage_word_length) values ('%s', '%s', '%s', '%s', %s, %s)",
+                        "average_word_length) values ('%s', '%s', '%s', '%s', %s, %s)",
                 fileInfo.getLocation(),
                 fileInfo.getName(),
                 fileInfo.getLongestWord(),
                 fileInfo.getShortestWord(),
                 fileInfo.getLength(),
-                fileInfo.getAvarageWordLength());
+                fileInfo.getAverageWordLength());
 
         String sqlLine = "insert into line_info (file_id, " +
                 "\"content\", longest_word, shortest_word," +
-                "length, avarage_word_length) " +
+                "length, average_word_length) " +
                 "values(?, ?, ?, ?, ?, ?)";
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -49,7 +49,7 @@ public class DbManager {
                 statementLine.setString(3, line.getLongestWord());
                 statementLine.setString(4, line.getShortestWord());
                 statementLine.setInt(5, line.getLength());
-                statementLine.setInt(6, line.getAvarageWordLength());
+                statementLine.setInt(6, line.getAverageWordLength());
 
                 statementLine.addBatch();
                 count++;

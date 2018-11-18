@@ -8,6 +8,6 @@ public class LineDto {
     private String content;
     private String longestWord;
     private String shortestWord;
-    private int avarageWordLength;
+    private int averageWordLength;
     private int length;
 }

@@ -21,7 +21,7 @@ public class Statistics {
                     .content(lineContent)
                     .longestWord(getMaxLengthWord(lineContent))
                     .shortestWord(getMinLengthWord(lineContent))
-                    .avarageWordLength(getAvarageWordLegth(lineContent))
+                    .averageWordLength(getAverageWordLegth(lineContent))
                     .length(lineContent.length())
                     .build());
         }
@@ -31,7 +31,7 @@ public class Statistics {
                 .location(file.getAbsolutePath())
                 .longestWord(getMaxLengthWord(content))
                 .shortestWord(getMinLengthWord(content))
-                .avarageWordLength(getAvarageWordLegth(content))
+                .averageWordLength(getAverageWordLegth(content))
                 .length(content.length())
                 .lines(lines)
                 .build();
@@ -39,7 +39,7 @@ public class Statistics {
 
     private static List<String> splitLine(String line) {
 
-        return new ArrayList<>((Arrays.asList(line.split(" "))));
+        return new ArrayList<>((Arrays.asList(line.split(" |\n", -1))));
     }
 
     private List<String> splitText (String content) {
@@ -71,14 +71,14 @@ public class Statistics {
         return maxStr;
     }
 
-    private int getAvarageWordLegth(String line) {
+    private int getAverageWordLegth(String line) {
         List<String> words = splitLine(line);
-        int sum = 0, avarage;
+        int sum = 0, average;
 
         for (String word : words) {
             sum += word.length();
         }
-        avarage = sum / words.size();
-        return avarage;
+        average = sum / words.size();
+        return average;
     }
 }
